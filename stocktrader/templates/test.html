@@ -1,0 +1,94 @@
+<!-- this code tests for a potential search bar-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">            
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+</head>
+<body>
+    <h1>Stock Search</h1>
+    <input type="text" id="search-input" placeholder="Search for stocks...">
+    <button onclick="searchStocks()">Search</button> 
+    <button onclick="removeStock()">Remove</button>       
+    <input type="button" value="Remove All" onclick="removeAll()">    
+    <ul id="stock-list"></ul>   
+
+    <script>
+      // Array to store the list of stocks
+      let stockList = [];
+      //function to reset, experimental
+      function removeAll() {           
+        document.getElementById("stock-list").innerHTML = ""; 
+      }
+ 
+      // Function to add an stock to the list
+      function addStockToList(stock) {
+        // Check if the stock already exists in the list
+        if (!stockList.includes(stock)) {
+          stockList.push(stock); 
+          // Update the list displayed on the HTML page
+          let stockListElement = document.getElementById("stock-list");
+          let newStockListItem = document.createElement("li");
+          newStockListItem.setAttribute("id", stock);
+           
+          newStockListItem.innerText = stock; 
+   
+          stockListElement.appendChild(newStockListItem);
+
+        }
+      }
+
+      // Function to search for stocks
+      function searchStocks() { 
+        let searchInput = document.getElementById("search-input");
+        let searchQuery = searchInput.value.trim().toLowerCase();
+        // Reset the search input  
+        searchInput.value = ""; 
+        // Perform the search
+        // For this example, we're using a hard-coded list of animals
+        let stocks = ["AAPL", "MSFT", "PCAR", "NVDA", "TSLA", "META", "TSM", "JPM", "MA"];
+        stocks.forEach(function(stock) {
+          if (stock.toLowerCase().includes(searchQuery)) {
+            addStockToList(stock);  
+          }
+        });
+      }
+
+      function removeStock() {
+        let searchInput = document.getElementById("search-input");
+        let searchQuery = searchInput.value.trim().toUpperCase();
+        // Reset the search input  
+        searchInput.value = ""; 
+        // Perform the search 
+        
+        stockList.forEach(function(stock) {
+          if (stock == (searchQuery)) {
+            stockList.splice(stockList.indexOf(searchQuery),1); 
+
+            //searchInput.value = "A OK";
+
+            let stockListElement = document.getElementById("stock-list");
+            let newStockListItem = document.getElementById(searchQuery);
+            //newStockListItem.innerText = stockList; 
+            stockListElement.removeChild(newStockListItem); 
+
+          }
+        });
+        
+  
+      }
+
+      /*
+      function removeStock() {
+        var listVar = document.getElementsByTagName("ul").item(0);
+        var searchInput = document.getElementById("search-input");
+        searchInput.value = "";
+        //var item = document.getElementById(candidate.value);
+        listVar.removeChild(searchInput.value);
+      }
+      */
+    </script>
+</body>
+</html>

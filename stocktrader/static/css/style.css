@@ -1,0 +1,10 @@
+#container {
+    height: 75%;
+    width: 75%;
+}
+
+#chart {
+    max-width: 75%;
+    max-height: 75%;
+    margin: 35px auto; 
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../static/css/login.css">  
+  <title>login</title>
+  <script type="text/javascript">
+    function login() {
+      user_name = document.getElementById('username').value
+      password = document.getElementById('password').value
+      fetch("http://127.0.0.1:8000/handler/login", {
+        method: "POST",
+        body: JSON.stringify({  "user_name": user_name, 
+                                "password": password
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+        }).then((response) => response.json())
+        .then((json) => {
+            if(json.logged_in == 'True') {
+              window.location.replace('search')
+            } else {
+              alert("login failed, please try again")
+            }
+        
+        });
+    }
+  </script>
+</head>
+<body>
+  <img src="../static/img/logo.png" id="avatar">
+      
+  <div id="main_login">
+    <div id="login_block">
+      <p><b>Username</b></p>
+      <input id="username" type="text" placeholder="Enter Username">
+    </div>
+      
+    <div class="login_block">
+      <p><b>Password</b></p>
+      <input id="password" type="password" placeholder="Enter Password">
+    </div>
+    
+    <div class="login_block">
+      <button type="submit", onclick="login()">Login</button> 
+      <form action="signup.html"><button>Signup</button></form> 
+    </div>
+    
+
+    <div class="login_block">
+      <p>
+        <input type="checkbox" checked="checked"> Remember me
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+

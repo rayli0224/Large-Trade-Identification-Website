@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type ="text/css" href="../static/css/signup.css">
+    <script type="text/javascript">
+        function signup() {
+            console.log("this is being called!");
+          user_name = document.getElementById('username').value
+          password = document.getElementById('password').value
+          passwordconf = document.getElementById('passwordconf').value
+          email = document.getElementById('email').value
+          fetch("http://127.0.0.1:8000/handler/signup", {
+            method: "POST",
+            body: JSON.stringify({  "user_name": user_name, 
+                                    "passwordconf": passwordconf,
+                                    "password": password,
+                                    "email": email
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+            }).then((response) => response.json())
+            .then((json) => {
+                if(json.logged_in == 'True') {
+                  window.location.replace('search')
+                } else {
+                  alert("signup failed, please try again")
+                }  
+            
+            });
+        }
+      </script>
+</head>
+<body>
+    <form>
+        <h1>User Sign Up</h1>  
+        <input type="text" id="username" placeholder="Username">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <input type="password" id="passwordconf" placeholder="Confirm Password">
+        <button type="Submit" onclick="signup()">Signup</button>  
+        <input type="button" style="background-color: blue" value="Back to Login" onclick="location.href='login.html';" id = "back">    
+    </form>  
+    <!-- <a href="login.html"><button>Back to Login</button></a> --> 
+    
+    
+    
+</body>
+</html>
